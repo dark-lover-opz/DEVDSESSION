@@ -21,13 +21,17 @@ class DataBase implements SessionDatabase {
     constructor(public config: DataBaseOptions, public timeout: number) {
         this.client = createClient(config);
         this.client.on("error", (err) => {
-            logger.fatal(`Redis client error: ${err}`);
-            throw new Error(err);
+            logger.error(`Redis client error: ${err}`);
+            // throw new Error(err);
+        });
+        this.client.on("ready", () => {
+            logger.debug("Redis client ready");
         });
     }
     async connect(): Promise<DataBase> {
         logger.debug("Connecting to Redis database...");
         await this.client.connect();
+        await this.client.ping();
         return this;
     }
     async sessionExists(sessionKey: string): Promise<boolean> {
