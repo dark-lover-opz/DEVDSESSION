@@ -1,47 +1,50 @@
 {
-  "name": "devdsession",
-  "version": "1.0.0",
-  "description": "Whatsapt paring api for DEVD whatsappbot",
-  "main": "dist/index.js",
-  "type": "module",
-  "scripts": {
-    "start": "node .",
-    "build": "tsc && npm run copy-static",
-    "copy-static": "copyfiles -u 1 src/public/**/* dist/",
-    "serve": "npm run build && node . serve -v",
-    "test": "vitest",
-    "lint": "eslint"
-  },
-  "keywords": [
-    "bot"
-  ],
-  "author": "DannyAkintunde",
-  "license": "MIT",
-  "dependencies": {
-    "@hapi/boom": "^10.0.1",
-    "baileys": "^6.7.16",
-    "cors": "^2.8.5",
-    "dotenv": "^16.5.0",
-    "express": "^5.1.0",
-    "fs-extra": "^11.3.0",
-    "pino": "^9.6.0",
-    "pino-http": "^10.4.0",
-    "qrcode": "^1.5.4",
-    "redis": "^5.0.0",
-    "yargs": "^17.7.2"
-  },
-  "devDependencies": {
-    "@eslint/js": "^9.26.0",
-    "@types/express": "^5.0.1",
-    "@types/fs-extra": "^11.0.4",
-    "@types/node": "^22.15.3",
-    "@types/qrcode": "^1.5.5",
-    "@types/redis": "^4.0.10",
-    "@types/yargs": "^17.0.33",
-    "copyfiles": "^2.4.1",
-    "eslint": "^8.57.1",
-    "globals": "^16.0.0",
-    "pino-pretty": "^13.0.0",
-    "typescript-eslint": "^8.31.1"
-  }
+    "name": "devdsession",
+    "version": "1.0.0",
+    "description": "Whatsapt paring api for DEVD whatsappbot",
+    "main": "dist/index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node .",
+        "build": "tsc && npm run build-static",
+        "dev": "tsc && npm run copy-static",
+        "build-static": "copyfiles src/public/*.html -u 1 dist/ && esbuild src/public/assets/* --bundle --minify --format=esm --outdir=dist/public/assets --watch",
+        "copy-static": "copyfiles -u 1 src/public/**/* dist/",
+        "serve": "npm run build && node . serve -v",
+        "test": "vitest",
+        "lint": "eslint"
+    },
+    "keywords": [
+        "bot"
+    ],
+    "author": "DannyAkintunde",
+    "license": "MIT",
+    "dependencies": {
+        "@hapi/boom": "^10.0.1",
+        "baileys": "^6.7.16",
+        "cors": "^2.8.5",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "fs-extra": "^11.3.0",
+        "pino": "^9.6.0",
+        "pino-http": "^10.4.0",
+        "qrcode": "^1.5.4",
+        "redis": "^5.0.0",
+        "yargs": "^17.7.2"
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.26.0",
+        "@types/express": "^5.0.1",
+        "@types/fs-extra": "^11.0.4",
+        "@types/node": "^22.15.3",
+        "@types/qrcode": "^1.5.5",
+        "@types/redis": "^4.0.10",
+        "@types/yargs": "^17.0.33",
+        "copyfiles": "^2.4.1",
+        "esbuild": "^0.25.5",
+        "eslint": "^8.57.1",
+        "globals": "^16.0.0",
+        "pino-pretty": "^13.0.0",
+        "typescript-eslint": "^8.31.1"
+    }
 }
