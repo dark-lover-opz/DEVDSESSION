@@ -455,7 +455,7 @@ img {
     top: 100%;
     padding: 0.5rem;
     padding-top: 0;
-    margin-block: 8px;
+    margin-top: 8px;
     flex-direction: column;
     pointer-events: none;
     visibility: hidden;
@@ -479,8 +479,12 @@ img {
         transform: translateY(20px);
     }
 }
+.phone-input .options.flip.active {
+    transform: translateY(calc(-100% - 16px));
+}
 .phone-input .options.flip {
-    top: -100%;
+    top: 0;
+    transform: translateY(calc(-100% - 16px - 20px));
     flex-direction: column-reverse;
 }
 .phone-input .options .input-control {
@@ -628,7 +632,8 @@ main {
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    overflow-y: visible;
+    overflow-x: clip;
 }
 
 /*<====link-device====>*/

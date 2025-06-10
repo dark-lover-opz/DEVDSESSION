@@ -43,6 +43,7 @@ async function loadCountries(optionListWrapper, onClick) {
                                 class="iconify check"
                                 data-icon="material-symbols:check-small-rounded"
                             ></span>`;
+
             option.addEventListener(
                 "click",
                 async (e) => await onClick(e, country)
@@ -72,7 +73,11 @@ function openOptions(options) {
         ).innerHTML = `<span class="iconify" data-icon="line-md:search"></span>`;
         options.style.visibility = "visible";
         if (selectedCountry)
-            countriesList.scrollTo(countries.indexOf(selectedCountry));
+            countriesList.scrollTo(
+                countries.findIndex(
+                    (item) => item.code === selectedCountry.code
+                )
+            );
     } else options.style.visibility = "hidden";
     options.classList.toggle("active");
     options.querySelector("input").focus();
@@ -189,7 +194,9 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
                 dispatch: dispacthFunction,
             });
 
-        await countriesList.scrollTo(i ?? countries.indexOf(country));
+        await countriesList.scrollTo(
+            i ?? countries.findIndex((item) => item.code === country.code)
+        );
         const countryElement = optionListWrapper.querySelector(
             `[data-code="${country.code}"]`
         );
