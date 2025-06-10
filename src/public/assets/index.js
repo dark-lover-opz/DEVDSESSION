@@ -559,7 +559,7 @@ document.addEventListener("DOMContentLoaded", () => {
         if (qrTab.classList.contains("active")) getQr();
     };
     getQrCodeIfTabActive();
-    setInterval(() => getQrCodeIfTabActive, 90000); // refresh qr code every minute and half
+    setInterval(() => getQrCodeIfTabActive, 60000); // refresh qr code every minute and half
     tabber.addEventListener("tab-switch", (e) => {
         console.log(e);
         if (e.detail === 1) getQr();

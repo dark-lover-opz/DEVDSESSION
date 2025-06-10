@@ -57,6 +57,7 @@ export function createSession(
                     encoding: "utf8",
                 });
                 await callback(undefined, sock, session);
+                // await baileys.delay(1000); // delay to make sure message sends
                 logger.debug("Closing socket after getting session");
                 sock.end(undefined); // close the socket after getting the session
                 return;
