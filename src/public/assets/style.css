@@ -539,7 +539,7 @@ img {
     list-style: none;
 }
 .phone-input .options ol .option {
-    padding-inline: 16px;
+    padding-inline-start: 16px;
     height: 48px;
     border-radius: 8px;
     display: flex;

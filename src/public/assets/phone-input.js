@@ -160,6 +160,17 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
 
     let inputMask;
 
+    const adjustDropdownPosition = () => {
+        const inputRect = phoneInput.getBoundingClientRect();
+        const dropDownHeight = options.offsetHeight;
+        const spaceBelow = window.innerHeight - inputRect.bottom;
+        const spaceAbove = inputRect.top;
+
+        if (spaceBelow < dropDownHeight && spaceAbove >= dropDownHeight)
+            options.classList.add("flip");
+        else options.classList.remove("flip");
+    };
+
     const applyMask = () => {
         inputMask.resolve(inputElement.value);
         inputElement.value = inputMask.value;
@@ -274,7 +285,12 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
         }
     };
     document.addEventListener("keydown", handleEscape);
-    trigger.addEventListener("click", () => openOptions(options));
+    trigger.addEventListener("click", () => {
+        openOptions(options);
+        adjustDropdownPosition();
+    });
+    window.addEventListener("resize", adjustDropdownPosition);
+    window.addEventListener("scroll", adjustDropdownPosition);
     const countryCode = await getCountryCode();
     const country = countries.filter((country) => {
         return country.code == countryCode;
