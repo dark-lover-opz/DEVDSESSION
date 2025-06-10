@@ -53,6 +53,7 @@ function switchTab(tab, i) {
     url.searchParams.set("tab", activeTabPlaneId);
     localStorage.setItem("tab", activeTabPlaneId);
     history.pushState("", null, url);
+    tabber.dispatchEvent(new CustomEvent("tab-switch", { detail: tabIndex }));
 }
 
 function getActiveTab() {
@@ -554,9 +555,15 @@ document.addEventListener("DOMContentLoaded", () => {
     updateThemeIcon(savedTheme);
     console.log(savedTheme);
     themeToggle.addEventListener("click", toggleTheme);
-    setInterval(() => {
+    const getQrCodeIfTabActive = () => {
         if (qrTab.classList.contains("active")) getQr();
-    }, 90000); // refresh qr code every minute and half
+    };
+    getQrCodeIfTabActive();
+    setInterval(() => getQrCodeIfTabActive, 90000); // refresh qr code every minute and half
+    tabber.addEventListener("tab-switch", (e) => {
+        console.log(e);
+        if (e.detail === 1) getQr();
+    });
     if (navigator.onLine) {
         hideElement(qrCodeError);
         if (qrTab.classList.contains("active")) getQr();
