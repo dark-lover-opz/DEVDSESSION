@@ -33,8 +33,11 @@ async function loadCountries(optionListWrapper, onClick) {
                                     data-icon="flag:${country.code.toLowerCase()}-4x3"
                                 ></span>
                                 <span class="country-name">${
+                                    country.highlightedItem?.name ??
                                     country.name
-                                } <strong>(${country.phone})</strong></span>
+                                } <strong>(${
+                country.highlightedItem?.phone ?? country.phone
+            })</strong></span>
                             </div>
                             <span
                                 class="iconify check"
@@ -93,6 +96,53 @@ async function getCountryCode(fallback = "NG") {
     } catch {
         return fallback;
     }
+}
+// Highlight function (your code)
+function highlight(fuseSearchResult, highlightClassName = "highlight") {
+    const set = (obj, path, value) => {
+        const pathValue = path.split(".");
+        let i;
+        for (i = 0; i < pathValue.length - 1; i++) {
+            obj = obj[pathValue[i]];
+        }
+        obj[pathValue[i]] = value;
+    };
+
+    const generateHighlightedText = (inputText, regions = []) => {
+        let content = "";
+        let nextUnhighlightedRegionStartingIndex = 0;
+
+        regions.forEach((region) => {
+            const lastRegionNextIndex = region[1] + 1;
+            content += [
+                inputText.substring(
+                    nextUnhighlightedRegionStartingIndex,
+                    region[0]
+                ),
+                `<span class="${highlightClassName}">`,
+                inputText.substring(region[0], lastRegionNextIndex),
+                "</span>",
+            ].join("");
+            nextUnhighlightedRegionStartingIndex = lastRegionNextIndex;
+        });
+
+        content += inputText.substring(nextUnhighlightedRegionStartingIndex);
+        return content;
+    };
+
+    return fuseSearchResult
+        .filter(({ matches }) => matches && matches.length)
+        .map(({ item, matches }) => {
+            const highlightedItem = { ...item };
+            matches.forEach((match) => {
+                set(
+                    highlightedItem,
+                    match.key,
+                    generateHighlightedText(match.value, match.indices)
+                );
+            });
+            return highlightedItem;
+        });
 }
 
 document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
@@ -231,10 +281,22 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
 
     const searchHandler = () => {
         const query = optionsSearchBox.value.trim();
-        const searchResults = query
-            ? fuse.search(query)
-            : countries.map((entry) => new Object({ item: entry }));
-        const filtered = searchResults.map((res) => res.item);
+        let searchResults;
+        let highlitedResults;
+        if (query) {
+            searchResults = fuse.search(query);
+            highlitedResults = highlight(searchResults);
+        } else {
+            searchResults = countries.map(
+                (entry) => new Object({ item: entry })
+            );
+        }
+
+        let filtered = searchResults.map((res) => res.item);
+        if (highlitedResults)
+            filtered = filtered.map((item, i) =>
+                Object({ ...item, ...{ highlightedItem: highlitedResults[i] } })
+            );
         // console.log(searchResults);
         countriesList.refresh({
             items: filtered,
