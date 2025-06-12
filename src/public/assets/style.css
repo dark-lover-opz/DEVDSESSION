@@ -408,8 +408,6 @@ img {
 .phone-input .input-box .input-control {
     flex-grow: 1;
     position: relative;
-    /* border-radius: 0 8px 8px 0; */
-    /* overflow: hidden; */
 }
 .phone-input .input-box .input-control label {
     position: absolute;
@@ -472,7 +470,6 @@ img {
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
     border-radius: 8px;
     transition: transform 0.3s, opacity 0.3s;
-    /* transition-behavior: allow-discrete; */
 }
 .phone-input .options.active {
     opacity: 1;
