@@ -325,7 +325,8 @@ function validatePhoneNumber() {
         return;
     }
     errorMsg.classList.remove("show");
-    const phoneNumber = phoneInput.dataset.code + phoneInput.dataset.value;
+    const phoneNumber =
+        phoneInput.dataset.code.replace("+", "") + phoneInput.dataset.value;
     console.log(phoneNumber);
     return phoneNumber;
 }
