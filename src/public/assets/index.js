@@ -151,7 +151,7 @@ const sun = `   <svg
                             </defs>
                         </svg>`;
 const moon = `<svg width="24" height="24" stroke-width="1.5" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="dark">
-                    <path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"/>
+                    <path d="M3 11.5066C3 16.7497 7.25034 21 12.4934 21C16.2209 21 19.4466 18.8518 21 15.7259C12.4934 15.7259 8.27411 11.5066 8.27411 3C5.14821 4.55344 3 7.77915 3 11.5066Z" stroke-linecap="round" stroke-linejoin="round"/>
                 </svg>
 `;
 
@@ -242,8 +242,9 @@ const copyBtn = copyContainer.querySelector(".btn");
 copyBtn.querySelector(".icon").innerHTML = copyIcon;
 
 function updateCopyContanier(text) {
-    copyContainer.setAttribute("data-content", text);
-    copyContainer.querySelector("#code").textContent = text;
+    const formattedCode = `${text.substring(0, 4)}-${text.substring(4)}`;
+    copyContainer.setAttribute("data-content", formattedCode);
+    copyContainer.querySelector("#code").textContent = formattedCode;
 }
 
 function showCopyContanier() {
@@ -310,6 +311,25 @@ const refreshIcon = `      <svg
                             </defs>
                         </svg>`;
 
+const inputContainer = document.querySelector(".input-contanier");
+const phoneInput = inputContainer.querySelector(".phone-input");
+const errorMsg = inputContainer.querySelector(".error");
+
+function validatePhoneNumber() {
+    console.log(phoneInput.dataset.complete);
+    if (phoneInput.dataset.complete !== "true") {
+        if (!phoneInput.dataset.value)
+            errorMsg.textContent = "phone number is required";
+        else errorMsg.textContent = "invalid phone number";
+        errorMsg.classList.add("show");
+        return;
+    }
+    errorMsg.classList.remove("show");
+    const phoneNumber = phoneInput.dataset.code + phoneInput.dataset.value;
+    console.log(phoneNumber);
+    return phoneNumber;
+}
+
 const pairBtn = pairTab.querySelector("#get-code");
 const pairBtnText = pairBtn.querySelector(".text");
 const pairBtnDelayElement = pairBtn.querySelector(".delay");
@@ -353,16 +373,18 @@ function getPairingCode(phone) {
     }).then((data) => {
         if (!data.ok) {
             console.error("Failed to fetch pairing code");
+            errorMsg.textContent = "Oops an error occured";
+            errorMsg.classList.add("show");
             showElement(pairBtnText);
             hideElement(pairLoader);
             return;
         }
+        errorMsg.classList.remove("show");
         data.json().then((data) => {
             console.log(data);
             const pairingCode = data.code;
             updateCopyContanier(pairingCode);
             showCopyContanier();
-            showElement(pairBtnText);
             hideElement(pairLoader);
         });
     });
@@ -519,9 +541,16 @@ copyBtn.addEventListener("click", () => {
     copyToClipboard(content);
 });
 
-pairBtn.addEventListener("click", () => {
-    //startPairCooldown();
-    showCopyContanier();
+pairBtn.addEventListener("click", (e) => {
+    e.preventDefault();
+    const phoneNumber = validatePhoneNumber();
+    if (!phoneNumber) return;
+    pairBtn.setAttribute("disabled", true);
+    showElement(pairLoader);
+    getPairingCode(phoneNumber).finally(() => {
+        hideElement(pairLoader);
+        startPairCooldown();
+    });
 });
 qrBtn.addEventListener("click", () => {
     qrBtn.setAttribute("disabled", true);
@@ -561,7 +590,6 @@ document.addEventListener("DOMContentLoaded", () => {
     getQrCodeIfTabActive();
     setInterval(() => getQrCodeIfTabActive, 60000); // refresh qr code every minute and half
     tabber.addEventListener("tab-switch", (e) => {
-        console.log(e);
         if (e.detail === 1) getQr();
     });
     if (navigator.onLine) {
