@@ -8,7 +8,7 @@
         "start": "node .",
         "build": "tsc && npm run build-static",
         "dev": "tsc && npm run copy-static",
-        "build-static": "copyfiles src/public/*.html -u 1 dist/ && esbuild src/public/assets/* --bundle --minify --format=esm --outdir=dist/public/assets --watch",
+        "build-static": "copyfiles src/public/*.html -u 1 dist/ && esbuild src/public/assets/* --bundle --minify --format=esm --outdir=dist/public/assets",
         "copy-static": "copyfiles -u 1 src/public/**/* dist/",
         "serve": "npm run build && node . serve -v",
         "test": "vitest",

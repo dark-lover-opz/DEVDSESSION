@@ -311,7 +311,7 @@ const refreshIcon = `      <svg
                             </defs>
                         </svg>`;
 
-const inputContainer = document.querySelector(".input-contanier");
+const inputContainer = document.querySelector(".input-container");
 const phoneInput = inputContainer.querySelector(".phone-input");
 const errorMsg = inputContainer.querySelector(".error");
 

@@ -35,6 +35,7 @@ export function createSession(
         });
         sock.ev.on("creds.update", saveCreds);
 
+        let fetched = false;
         sock.ev.on("connection.update", async (update) => {
             const { connection, lastDisconnect, qr } = update;
 
@@ -43,10 +44,13 @@ export function createSession(
                     lastDisconnect?.error
                 )?.output.statusCode;
                 if (reason === baileys.DisconnectReason.restartRequired) {
+                    sock.ev.removeAllListeners("connection.update");
+                    sock.end(undefined);
                     createSession(path, phone, callback);
                 } else {
                     await callback(lastDisconnect?.error);
                 }
+                return;
             }
 
             if (connection === "open") {
@@ -63,6 +67,7 @@ export function createSession(
                 return;
             }
 
+            if (fetched) return;
             if (qr) {
                 if (phone) {
                     const code = await sock.requestPairingCode(phone);
@@ -70,6 +75,7 @@ export function createSession(
                 } else {
                     resolve(qr);
                 }
+                fetched = true;
             }
         });
     });
