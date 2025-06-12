@@ -272,7 +272,7 @@ function copyToClipboard(text) {
         });
 }
 
-const holdDuration = 10;
+const holdDuration = 30;
 
 const clockIcon = `<svg
                     width="24"
