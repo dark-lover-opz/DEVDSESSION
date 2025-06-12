@@ -32,7 +32,7 @@ class VirtualList {
         this.totalRows =
             config.totalRows || (config.items && config.items.length);
         this.totalHeight = this.itemHeight * this.totalRows;
-        console.log(this.totalHeight);
+        // console.log(this.totalHeight);
         this.scroller = this.createScroller(this.totalHeight);
         this.visibleRows = config.visibleRows;
         this.screenItemsLen =

@@ -136,102 +136,123 @@
                             </div>
                             <h3>Pair Device</h3>
                             <p>Input your phone number to get pairing code</p>
-                            <div class="input-contanier">
-                                <div class="phone-input">
-                                    <div class="input-box">
-                                        <div class="selected-option">
-                                            <button
-                                                aria-label="select country"
-                                                aria-controls="countries"
-                                                aria-haspopup="listbox"
-                                                aria-expanded="false"
-                                                class="select-trigger"
-                                            >
-                                                <div>
-                                                    <span
-                                                        class="iconify flag"
-                                                        data-icon="streamline-ultimate-color:maps"
-                                                    ></span>
-                                                    <span class="toggle-icon">
-                                                        <svg
-                                                            xmlns="http://www.w3.org/2000/svg"
-                                                            width="24"
-                                                            height="24"
-                                                            viewBox="0 0 24 24"
-                                                            fill="none"
-                                                            stroke="currentColor"
-                                                            stroke-width="2"
-                                                            stroke-linecap="round"
-                                                            stroke-linejoin="round"
+                            <form action="">
+                                <div class="input-contanier">
+                                    <div class="phone-input">
+                                        <div class="input-box">
+                                            <div class="selected-option">
+                                                <button
+                                                    aria-label="select country"
+                                                    aria-controls="countries"
+                                                    aria-haspopup="listbox"
+                                                    aria-expanded="false"
+                                                    class="select-trigger"
+                                                    type="button"
+                                                >
+                                                    <div>
+                                                        <span
+                                                            class="iconify flag"
+                                                            data-icon="streamline-ultimate-color:maps"
+                                                        ></span>
+                                                        <span
+                                                            class="toggle-icon"
                                                         >
-                                                            <polyline
-                                                                points="18 15 12 9 6 15"
-                                                            />
-                                                        </svg>
-                                                    </span>
-                                                </div>
-                                            </button>
-                                        </div>
+                                                            <svg
+                                                                xmlns="http://www.w3.org/2000/svg"
+                                                                width="24"
+                                                                height="24"
+                                                                viewBox="0 0 24 24"
+                                                                fill="none"
+                                                                stroke="currentColor"
+                                                                stroke-width="2"
+                                                                stroke-linecap="round"
+                                                                stroke-linejoin="round"
+                                                            >
+                                                                <polyline
+                                                                    points="18 15 12 9 6 15"
+                                                                />
+                                                            </svg>
+                                                        </span>
+                                                    </div>
+                                                </button>
+                                            </div>
 
-                                        <div
-                                            class="input-control"
-                                            data-code="+234"
-                                        >
-                                            <!-- <span class="contry-code">+ 234</span> -->
-                                            <label for="phone"
-                                                >Phone number*</label
+                                            <div
+                                                class="input-control"
+                                                data-code="+234"
                                             >
-                                            <input
-                                                id="phone"
-                                                type="tel"
-                                                name="tel"
-                                                class="phone"
-                                                placeholder="Phone Number"
-                                                autocomplete="off"
-                                                required
-                                            />
+                                                <label for="phone"
+                                                    >Phone number*</label
+                                                >
+                                                <input
+                                                    id="phone"
+                                                    type="tel"
+                                                    name="tel"
+                                                    class="phone"
+                                                    placeholder="Phone Number"
+                                                    autocomplete="off"
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                        <div class="options">
+                                            <div class="input-control">
+                                                <div class="icon">
+                                                    <div></div>
+                                                </div>
+                                                <input
+                                                    type="search"
+                                                    class="search-box"
+                                                    placeholder="Search for countries"
+                                                    autofocus
+                                                />
+                                            </div>
+                                            <div
+                                                class="countries-wrapper"
+                                            ></div>
                                         </div>
                                     </div>
-                                    <div class="options">
-                                        <div class="input-control">
-                                            <div class="icon"><div></div></div>
-                                            <input
-                                                type="search"
-                                                class="search-box"
-                                                placeholder="Search for countries"
-                                                autofocus
-                                            />
-                                        </div>
-                                        <div class="countries-wrapper"></div>
-                                    </div>
+                                    <p class="error" style="position: absolute">
+                                        invalid phone number
+                                    </p>
                                 </div>
-                                <p hidden></p>
-                            </div>
-                            <div class="btn-group">
-                                <div id="copy" class="hidden aria-hidden="true"
-                                data-content="DYTT-JBYR" aria-label="Copy code"
-                                >
-                                <span
-                                    id="code"
-                                    aria-live="polite"
-                                    aria-label="Pairing code"
-                                    >DYTT-JBYR</span
-                                >
-                                <button class="btn outline">
-                                    <span class="icon" aria-label="copy">
-                                    </span>
-                                </button>
-                            </div>
-                            <button class="btn expanded" id="get-code">
-                                <span class="text">Get Code</span>
-                                <span class="delay hidden" aria-hidden="true">
-                                    <span>10s</span>
-                                </span>
 
-                                <div class="loader hidden" aria-hidden="true">
-                                    <div class="spinner"></div>
+                                <div class="btn-group">
+                                    <div id="copy" class="hidden
+                                    aria-hidden="true" data-content="DYTT-JBYR"
+                                    aria-label="Copy code" >
+                                    <span
+                                        id="code"
+                                        aria-live="polite"
+                                        aria-label="Pairing code"
+                                        >DYTT-JBYR</span
+                                    >
+                                    <button class="btn outline" type="button">
+                                        <span class="icon" aria-label="copy">
+                                        </span>
+                                    </button>
                                 </div>
-                            </button>
+                                <button
+                                    class="btn expanded"
+                                    id="get-code"
+                                    type="submit"
+                                >
+                                    <span class="text">Get Code</span>
+                                    <span
+                                        class="delay hidden"
+                                        aria-hidden="true"
+                                    >
+                                        <span>10s</span>
+                                    </span>
+
+                                    <div
+                                        class="loader hidden"
+                                        aria-hidden="true"
+                                    >
+                                        <div class="spinner"></div>
+                                    </div>
+                                </button>
+                            </form>
                         </div>
                     </div>
                     <div

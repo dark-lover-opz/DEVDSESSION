@@ -1,6 +1,7 @@
 :root {
     --color-primary: 151, 92%, 30%;
     --color-secondary: 151, 92%, 91%;
+    --color-error: 4, 92%, 45%;
     --bg-primary: 0, 0%, 95%;
     --bg-secondary: 0, 0%, 100%;
     --bg-tertiary: 0, 0%, 90%;
@@ -347,15 +348,22 @@ img {
 /*====phone input====*/
 .phone-input {
     position: relative;
-    border-radius: 8px;
-}
-.phone-input:focus-within {
-    box-shadow: 0 0 2px 2px hsla(var(--color-primary), 0.5);
 }
 .phone-input > .input-box {
     width: 100%;
     display: flex;
     overflow: hidden;
+    border-radius: 8px;
+    border: 2px solid hsl(var(--bg-tertiary));
+}
+.phone-input > .input-box.error {
+    border-color: hsl(var(--color-error));
+}
+.phone-input > .input-box:focus-within {
+    box-shadow: 0 0 2px 2px hsla(var(--color-primary), 0.4);
+}
+.phone-input > .input-box:focus-within.error {
+    box-shadow: 0 0 2px 2px hsla(var(--color-error), 0.4);
 }
 .phone-input input {
     caret-color: hsl(var(--color-primary));
@@ -367,9 +375,7 @@ img {
     width: 100%;
     height: 100%;
     border: none;
-    overflow: hidden;
     cursor: pointer;
-    border-radius: 8px 0 0 8px;
     background-color: hsl(var(--bg-tertiary));
 }
 .phone-input > .input-box .selected-option .select-trigger > div {
@@ -402,9 +408,8 @@ img {
 .phone-input .input-box .input-control {
     flex-grow: 1;
     position: relative;
-    border-radius: 0 8px 8px 0;
-    border: 2px solid hsl(var(--bg-tertiary));
-    overflow: hidden;
+    /* border-radius: 0 8px 8px 0; */
+    /* overflow: hidden; */
 }
 .phone-input .input-box .input-control label {
     position: absolute;
@@ -471,6 +476,7 @@ img {
 }
 .phone-input .options.active {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
 
@@ -494,6 +500,10 @@ img {
     margin-bottom: 8px;
     border-bottom: 2px solid hsl(var(--bg-primary));
     transition: border-color 0.3s;
+}
+.phone-input .options.flip .input-control {
+    border-bottom: none;
+    border-top: 2px solid hsl(var(--bg-primary));
 }
 .phone-input .options .input-control:focus-within {
     border-color: hsl(var(--color-primary));
@@ -710,6 +720,20 @@ main {
 /*Pair tab*/
 #link-device #pair.card .input-contanier {
     margin-block: 1rem;
+    /* margin-block-end: 0.2rem; */
+}
+#link-device #pair.card .input-contanier p.error {
+    text-align: start;
+    font-size: 12px;
+    margin-inline: 0.3rem;
+    display: none;
+    visibility: hidden;
+}
+#link-device #pair.card .input-contanier p.error.show {
+    color: hsl(var(--color-error));
+    pointer-events: all;
+    visibility: visible;
+    display: block;
 }
 #link-device #pair.card .btn-group {
     --gap: 0.5rem;

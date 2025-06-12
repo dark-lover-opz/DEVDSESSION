@@ -71,14 +71,13 @@ function openOptions(options) {
         options.querySelector(
             ".icon"
         ).innerHTML = `<span class="iconify" data-icon="line-md:search"></span>`;
-        options.style.visibility = "visible";
         if (selectedCountry)
             countriesList.scrollTo(
                 countries.findIndex(
                     (item) => item.code === selectedCountry.code
                 )
             );
-    } else options.style.visibility = "hidden";
+    }
     options.classList.toggle("active");
     options.querySelector("input").focus();
 }
@@ -152,6 +151,7 @@ function highlight(fuseSearchResult, highlightClassName = "highlight") {
 
 document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
     const inputElement = phoneInput.querySelector(".phone");
+    const inputBox = phoneInput.querySelector(".input-box");
     const inputControl = phoneInput.querySelector(".input-control");
     const trigger = phoneInput.querySelector(".select-trigger");
     const options = phoneInput.querySelector(".options");
@@ -174,6 +174,9 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
     const applyMask = () => {
         inputMask.resolve(inputElement.value);
         inputElement.value = inputMask.value;
+        if (!inputMask.isComplete) inputBox.classList.add("error");
+        else inputBox.classList.remove("error");
+        phoneInput.dataset.complete = inputMask.isComplete;
     };
 
     const loadCountry = async (country, i) => {
@@ -184,6 +187,7 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
         const countryCode = country.phone.split(" ")[0];
         inputControl.dataset.code = countryCode;
         phoneInput.dataset.country = countryCode;
+        inputElement.placeholder = country.masks[0].mask;
         const dispacthFunction = (appended, dynamicMasked) => {
             const phoneNumber = (dynamicMasked.value + appended).replace(
                 /\D/g,
@@ -215,6 +219,7 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
         if (selectedOption) selectedOption.ariaSelected = false;
         selectedOption = countryElement;
         selectedCountry = country;
+        phoneInput.dataset.code = country.phone;
     };
     const selectOption = async (_, country) => {
         await loadCountry(country);
@@ -243,7 +248,6 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
             ); // area code
         })[0];
 
-        console.log(country, normaliseInput(inputElement.value));
         if (country) {
             console.log(country.phone);
             inputElement.value = normaliseInput(inputElement.value).replace(
@@ -268,7 +272,10 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
 
     phoneInput.addEventListener("focusout", () => {
         setTimeout(() => {
-            if (!phoneInput.contains(document.activeElement))
+            if (
+                !options.contains(document.activeElement) &&
+                !trigger.contains(document.activeElement)
+            )
                 closeOptions(options);
         }, 0);
     });
@@ -288,6 +295,11 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
     trigger.addEventListener("click", () => {
         openOptions(options);
         adjustDropdownPosition();
+    });
+    options.addEventListener("transitionend", () => {
+        if (options.classList.contains("active"))
+            options.style.visibility = "visible";
+        else options.classList.visibility = "hidden";
     });
     window.addEventListener("resize", adjustDropdownPosition);
     window.addEventListener("scroll", adjustDropdownPosition);
