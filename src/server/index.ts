@@ -67,7 +67,7 @@ export async function startServer(port: number): Promise<void> {
     } else {
         const { start, stop } = await import("./server.js");
 
-        console.info(`[Worker] Worker PID: ${process.pid}`);
+        logger.info(`[Worker] Worker PID: ${process.pid}`);
 
         let isShuttingDown = false;
 
@@ -90,12 +90,12 @@ export async function startServer(port: number): Promise<void> {
         process.on("SIGTERM", shutdownWorker);
 
         process.on("uncaughtException", (err) => {
-            console.error(`[Worker ${process.pid}] Uncaught Exception:`, err);
+            logger.error(`[Worker ${process.pid}] Uncaught Exception:`, err);
             shutdownWorker();
         });
 
         process.on("unhandledRejection", (reason) => {
-            console.error(
+            logger.error(
                 `[Worker ${process.pid}] Unhandled Rejection:`,
                 reason
             );
