@@ -45,3 +45,5 @@ npm run serve
 ```sh
 npm run dev
 ```
+# License
+This project is licensed under the MIT license read the [License](LICENSE)
