@@ -17,7 +17,7 @@ PORT=8000 # Port the server runs on
 PREFIX=DEVD // prefix on session id
 DATABASE_URL="redis://username:password@host:port" # Redis database URL
 SESSION_TIMEOUT= # Duration an idle session lasts on the server
-ENCRYPTION_KEY= # Encryption key (must be 32 characters long)
+ENCRYPTION_KEY= # Encryption key (must be 32 bytes long base64 buffer) generate using crypto.randomBytes(32).toString("base64")
 ```
 
 ## API
@@ -45,5 +45,7 @@ npm run serve
 ```sh
 npm run dev
 ```
+
 # License
+
 This project is licensed under the MIT license read the [License](LICENSE)

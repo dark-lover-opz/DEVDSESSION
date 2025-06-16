@@ -4,7 +4,7 @@ import { encryptIv, decryptIv, generateIv } from "../crypto.js";
 export class SecureDatabase implements SessionDatabase {
     private encryptionKey: Buffer;
     constructor(private base: SessionDatabase, encryptionKey: string) {
-        this.encryptionKey = Buffer.from(encryptionKey);
+        this.encryptionKey = Buffer.from(encryptionKey, "base64");
     }
     connect(): Promise<SessionDatabase> {
         return this.base.connect();
