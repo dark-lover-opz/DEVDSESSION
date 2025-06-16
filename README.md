@@ -46,6 +46,12 @@ npm run serve
 npm run dev
 ```
 
+### Deploy with Docker
+
+```sh
+docker pull ghcr.io/dannyakintunde/devdsession:latest
+```
+
 # License
 
 This project is licensed under the MIT license read the [License](LICENSE)
