@@ -6,12 +6,11 @@ import { logger } from "../lib/logger.js";
 import { requestLogger } from "./middleware/requestLogger.js";
 import { handleSessionCreation } from "../lib/sessions/index.js";
 import { SessionStore, SecureDatabase } from "../lib/db/index.js";
-import Qrcode from "qrcode";
 import {
     clearDir,
     generateRandomAvailableFolderPath,
 } from "../lib/fileHelper.js";
-import { publicEncrypt } from "crypto";
+import { encryptSessionWithKey } from "../lib/crypto.js";
 
 const __filename: string = fileURLToPath(import.meta.url);
 const __dirname: string = dirname(__filename);
@@ -29,7 +28,6 @@ app.post("/api/qr", async (req: express.Request, res: express.Response) => {
         sessionDir
     );
     const qrString = await handleSessionCreation(Store, requestSessionPath);
-    logger.debug(await Qrcode.toFile("./qr.png", qrString));
     res.json({ qr: qrString });
 });
 
@@ -60,11 +58,12 @@ app.post(
         const sessionId = req.params.sessionId;
         const session = await Store.getSession(sessionId);
         if (typeof session == "string") {
-            const encryptedSession = publicEncrypt(
+            const encryptedSessionData = encryptSessionWithKey(
                 publicKey,
-                Buffer.from(session)
+                session
             );
-            res.json({ session: encryptedSession });
+
+            res.json(encryptedSessionData);
         } else {
             res.status(404).json({ error: "Session not found" });
         }

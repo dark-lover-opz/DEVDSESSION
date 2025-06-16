@@ -1,4 +1,9 @@
-import { randomBytes, createCipheriv, createDecipheriv } from "node:crypto";
+import {
+    randomBytes,
+    createCipheriv,
+    createDecipheriv,
+    publicEncrypt,
+} from "node:crypto";
 
 export function generateIv(): Buffer {
     return randomBytes(16);
@@ -16,4 +21,17 @@ export function decryptIv(key: Buffer, iv: Buffer, data: string): string {
     const decryptedMessage =
         decipher.update(data, "hex", "utf8") + decipher.final("utf8");
     return decryptedMessage;
+}
+
+export function encryptSessionWithKey(publicKey: string, session: string) {
+    const key = randomBytes(32);
+    const iv = generateIv();
+    const encryptedSession = encryptIv(key, iv, session);
+    const encryptedKey = publicEncrypt(publicKey, key);
+
+    return {
+        session: encryptedSession,
+        key: encryptedKey.toString("base64"),
+        iv: iv.toString("base64"),
+    };
 }
