@@ -15,9 +15,9 @@ You can customize the site backend for your bot by editing the environment varia
 ```.env
 PORT=8000 # Port the server runs on
 PREFIX=DEVD // prefix on session id
-DATABASE_URL="redis://username:password@host:port" # Redis database URL
+DATABASE_URL="redis://username:password@host:port" # Redis database URL (required)
 SESSION_TIMEOUT= # Duration an idle session lasts on the server
-ENCRYPTION_KEY= # Encryption key (must be 32 bytes long base64 buffer) generate using crypto.randomBytes(32).toString("base64")
+ENCRYPTION_KEY= # Encryption key (must be 32 bytes long base64 buffer required) generate using crypto.randomBytes(32).toString("base64")
 ```
 
 ## API
