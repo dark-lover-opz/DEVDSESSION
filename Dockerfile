@@ -13,9 +13,10 @@ RUN npm install
 COPY --chown=node:node . .
 RUN npm run build
 # Remove dev dependencies and install production dependencies
+ENV NODE_ENV=production
 RUN rm -rf node_modules && \
     rm -rf src && \
-    npm install --production
+    npm install
 
 EXPOSE 8000
 CMD ["npm", "start", "serve"]

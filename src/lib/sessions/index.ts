@@ -18,7 +18,7 @@ export async function handleSessionCreation(
                 await sock.sendMessage(sock.user!.id, {
                     text: `\`\`\`Session created\`\`\`: \`${sessionKey}\`\n\n_Use this key to restore the session._`,
                 });
-                logger.info(`Session created: ${sessionKey}`);
+                // logger.info(`Session created: ${sessionKey}`);
             } else if (error) {
                 logger.error(`Error creating session: ${error}`);
             }
