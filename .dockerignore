@@ -1,0 +1,5 @@
+.dockerignore
+.gitignore
+LICENSE
+README.md
+examples/
