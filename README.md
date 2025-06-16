@@ -60,6 +60,14 @@ docker pull ghcr.io/dannyakintunde/devdsession:latest
 
 [View the Figma Design](https://www.figma.com/design/iNnir9J4Y4UOEceiWxZZLO/DEVD-Session?node-id=0-1&t=RZyBPYzolON1qwLN-1)
 
+## 🧩 Wireframes
+
+Below are the initial wireframes for the DEVDSESSION web app:
+
+- [Pair code Wireframe](https://wireframe.cc/Oez5Hr)
+- [Qr Wireframe](https://wireframe.cc/D4kE0D)
+
+
 # License
 
 This project is licensed under the MIT license read the [License](LICENSE)
