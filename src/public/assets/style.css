@@ -32,6 +32,10 @@
     margin: 0;
     box-sizing: border-box;
 }
+*:focus-visible {
+    outline: 2px solid hsl(var(--color-primary));
+    outline-offset: 2px;
+}
 ::-webkit-scrollbar {
     width: 0.4rem;
 }
@@ -305,7 +309,7 @@ img {
     border-radius: 10px;
     left: var(--tabber-pos-left);
     box-shadow: 0 0 6px 2px rgba(0, 0, 0, 0.2);
-    transition: transform 0.25s ease-in;
+    transition: left 0.25s ease-in;
 }
 
 .tabs [id^="tab-"] {

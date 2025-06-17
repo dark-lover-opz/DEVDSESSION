@@ -2,24 +2,6 @@
 
 DEVDSESSION is a WhatsApp session generator site/API for [Baileys](https://github.com/WhiskeySockets/Baileys) WhatsApp bots.
 
-## Usage
-
-To get a WhatsApp session, visit the site to link your device. Once completed, a session ID will be generated and sent to your WhatsApp. Use this ID to fetch the session file from the server.
-
-[Example](examples/get-session.js)
-
-## Customization
-
-You can customize the site backend for your bot by editing the environment variables:
-
-```.env
-PORT=8000 # Port the server runs on
-PREFIX=DEVD // prefix on session id
-DATABASE_URL="redis://username:password@host:port" # Redis database URL (required)
-SESSION_TIMEOUT= # Duration an idle session lasts on the server
-ENCRYPTION_KEY= # Encryption key (must be 32 bytes long base64 buffer required) generate using crypto.randomBytes(32).toString("base64")
-```
-
 ## API
 
 -   **POST** `/api/session/:sessionId/reset` — Refresh a session.  
@@ -64,9 +46,8 @@ docker pull ghcr.io/dannyakintunde/devdsession:latest
 
 Below are the initial wireframes for the DEVDSESSION web app:
 
-- [Pair code Wireframe](https://wireframe.cc/Oez5Hr)
-- [Qr Wireframe](https://wireframe.cc/D4kE0D)
-
+-   [Pair code Wireframe](https://i.ibb.co/VYr3wbjy/image.png)
+-   [Qr Wireframe](https://i.ibb.co/rKdz8tyv/image.png)
 
 # License
 
