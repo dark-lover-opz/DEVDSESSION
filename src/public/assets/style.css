@@ -118,7 +118,7 @@ img {
     position: relative;
     display: inline-block;
     padding: 0.5rem 1rem;
-    font-size: 18px;
+    font-size: 1.125rem;
     font-weight: 600;
     color: white;
     background-color: hsl(var(--color-primary));
@@ -318,7 +318,7 @@ img {
     border: 0;
     flex: 1;
     font-family: var(--font-primary);
-    font-size: 20px;
+    font-size: 1.25rem;
     font-weight: 600;
     z-index: 0;
     transition: color 0.25s ease;
@@ -421,7 +421,7 @@ img {
     color: #636363;
     pointer-events: none;
     user-select: none;
-    font-size: 10px;
+    font-size: 0.625rem;
 }
 .phone-input .input-box .input-control input {
     position: relative;
@@ -431,7 +431,7 @@ img {
     outline: none;
     border: none;
     border-radius: 0 8px 8px 0;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
     color: hsl(var(--text-secondary));
     background-color: hsl(var(--input-bg));
@@ -445,7 +445,7 @@ img {
 .phone-input .input-box .input-control::before {
     content: attr(data-code);
     display: block;
-    font-size: 14px;
+    font-size: 0.875rem;
     font-weight: 600;
     width: calc(3rem - 16px);
     text-align: end;
@@ -460,9 +460,8 @@ img {
     display: flex;
     position: absolute;
     top: 100%;
-    padding: 0.5rem;
-    padding-top: 0;
     margin-top: 8px;
+    padding-block: 0 0.7rem;
     flex-direction: column;
     pointer-events: none;
     visibility: hidden;
@@ -493,11 +492,13 @@ img {
     top: 0;
     transform: translateY(calc(-100% - 16px - 20px));
     flex-direction: column-reverse;
+    padding-block: 0.7rem 0;
 }
 .phone-input .options .input-control {
     display: flex;
     align-items: stretch;
-    height: 48px;
+    min-height: 48px;
+    margin-inline: 0.7rem;
     margin-bottom: 8px;
     border-bottom: 2px solid hsl(var(--bg-primary));
     transition: border-color 0.3s;
@@ -534,7 +535,7 @@ img {
     padding: 8px;
     outline: none;
     border: 0;
-    font-size: 16px;
+    font-size: 1rem;
     font-weight: 600;
     color: hsl(var(--text-secondary));
     background-color: transparent;
@@ -544,6 +545,8 @@ img {
 }
 .phone-input .options .countries-wrapper {
     max-height: 192px;
+    padding-inline-end: 0.1rem;
+    margin-inline: 0.7rem 0.2rem;
     overflow: auto;
 }
 .phone-input .options ol {
@@ -606,7 +609,7 @@ header .container {
 }
 
 .logo {
-    font-size: 32px;
+    font-size: 2rem;
     font-weight: 700;
 }
 .logo span {
@@ -655,7 +658,7 @@ main {
     text-align: center;
 }
 #link-device h2 {
-    font-size: 40px;
+    font-size: 2.5rem;
     margin-bottom: 1rem;
     font-weight: 600;
 }
@@ -663,7 +666,7 @@ main {
     position: relative;
     margin-top: 2.5rem;
     padding: 0.5rem;
-    font-size: 16px;
+    font-size: 1rem;
     background-color: hsl(var(--bg-secondary));
     border-radius: 16px;
     align-self: flex-start;
@@ -683,7 +686,7 @@ main {
     background-color: hsl(var(--color-secondary));
 }
 #link-device .card h3 {
-    font-size: 36px;
+    font-size: 2.25rem;
     margin-top: 1.2rem;
     margin-bottom: 0.5rem;
 }
@@ -725,7 +728,7 @@ main {
 }
 #link-device #pair.card .input-container p.error {
     text-align: start;
-    font-size: 12px;
+    font-size: 0.75rem;
     margin-inline: 0.3rem;
     display: none;
     visibility: hidden;
@@ -857,7 +860,7 @@ main {
     left: 50%;
     transform: translate(-50%, -50%);
     color: hsl(var(--text-secondary));
-    font-size: 16px;
+    font-size: 1rem;
     padding: 1rem;
     border-radius: 8px;
     z-index: 1001;
