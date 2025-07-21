@@ -1,5 +1,12 @@
 import "https://unpkg.com/imask";
 import Fuse from "https://cdn.jsdelivr.net/npm/fuse.js@7.1.0/dist/fuse.basic.min.mjs";
+import {
+    autoUpdate,
+    computePosition,
+    flip,
+    size,
+    offset,
+} from "https://cdn.jsdelivr.net/npm/@floating-ui/dom@1.7.2/+esm";
 import VirtualList from "./virtual-list.js";
 
 let countriesList;
@@ -32,12 +39,18 @@ async function loadCountries(optionListWrapper, onClick) {
                                     class="iconify flag"
                                     data-icon="flag:${country.code.toLowerCase()}-4x3"
                                 ></span>
-                                <span class="country-name">${
-                                    country.highlightedItem?.name ??
-                                    country.name
-                                } <strong>(${
-                country.highlightedItem?.phone ?? country.phone
-            })</strong></span>
+                                <span class="country-name">
+                                    <span>
+                                    ${
+                                        country.highlightedItem?.name ??
+                                        country.name
+                                    } 
+                                    <strong>(${
+                                        country.highlightedItem?.phone ??
+                                        country.phone
+                                    })</strong>
+                                    </span>
+                                </span>
                             </div>
                             <span
                                 class="iconify check"
@@ -101,7 +114,7 @@ async function getCountryCode(fallback = "NG") {
         return fallback;
     }
 }
-// Highlight function (your code)
+// Highlight function
 function highlight(fuseSearchResult, highlightClassName = "highlight") {
     const set = (obj, path, value) => {
         const pathValue = path.split(".");
@@ -157,19 +170,32 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
     const options = phoneInput.querySelector(".options");
     const optionsSearchBox = options.querySelector(".search-box");
     const optionListWrapper = options.querySelector(".countries-wrapper");
+    const updatePosition = () => {
+        computePosition(phoneInput, options, {
+            placment: "bottom",
+            middleware: [
+                offset(8),
+                size({
+                    apply({ rects, elements }) {
+                        Object.assign(elements.floating.style, {
+                            width: `${rects.reference.width}px`,
+                        });
+                    },
+                }),
+                flip(),
+            ],
+        }).then(({ x, y, placement }) => {
+            Object.assign(options.style, {
+                top: `${y}px`,
+                left: `${x}px`,
+            });
+            options.classList.toggle("flip", placement === "top");
+        });
+    };
+
+    autoUpdate(phoneInput, options, updatePosition);
 
     let inputMask;
-
-    const adjustDropdownPosition = () => {
-        const inputRect = phoneInput.getBoundingClientRect();
-        const dropDownHeight = options.offsetHeight;
-        const spaceBelow = window.innerHeight - inputRect.bottom;
-        const spaceAbove = inputRect.top;
-
-        if (spaceBelow < dropDownHeight && spaceAbove >= dropDownHeight)
-            options.classList.add("flip");
-        else options.classList.remove("flip");
-    };
 
     const applyMask = () => {
         inputMask.resolve(inputElement.value);
@@ -294,15 +320,12 @@ document.querySelectorAll(".phone-input").forEach(async (phoneInput) => {
     document.addEventListener("keydown", handleEscape);
     trigger.addEventListener("click", () => {
         openOptions(options);
-        adjustDropdownPosition();
     });
     options.addEventListener("transitionend", () => {
         if (options.classList.contains("active"))
             options.style.visibility = "visible";
         else options.classList.visibility = "hidden";
     });
-    window.addEventListener("resize", adjustDropdownPosition);
-    window.addEventListener("scroll", adjustDropdownPosition);
     const countryCode = await getCountryCode();
     const country = countries.filter((country) => {
         return country.code == countryCode;
