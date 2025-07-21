@@ -459,8 +459,8 @@ img {
 .phone-input .options {
     display: flex;
     position: absolute;
-    top: 100%;
-    margin-top: 8px;
+    top: 0;
+    left: 0;
     padding-block: 0 0.7rem;
     flex-direction: column;
     pointer-events: none;
@@ -474,25 +474,16 @@ img {
     border-radius: 8px;
     transition: transform 0.3s, opacity 0.3s;
 }
+.phone-input .options.flip {
+    transform: translateY(-20px);
+    flex-direction: column-reverse;
+    padding-block: 0.7rem 0;
+}
 .phone-input .options.active {
     opacity: 1;
     visibility: visible;
     pointer-events: auto;
     transform: translateY(0);
-
-    @starting-style {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-}
-.phone-input .options.flip.active {
-    transform: translateY(calc(-100% - 16px));
-}
-.phone-input .options.flip {
-    top: 0;
-    transform: translateY(calc(-100% - 16px - 20px));
-    flex-direction: column-reverse;
-    padding-block: 0.7rem 0;
 }
 .phone-input .options .input-control {
     display: flex;
@@ -547,7 +538,7 @@ img {
     max-height: 192px;
     padding-inline-end: 0.1rem;
     margin-inline: 0.7rem 0.2rem;
-    overflow: auto;
+    overflow: hidden auto;
 }
 .phone-input .options ol {
     list-style: none;
@@ -582,10 +573,14 @@ img {
     gap: 16px;
 }
 .phone-input .options ol .option div .country-name {
-    max-width: 100%;
     font-weight: 300;
     text-align: start;
+    overflow: hidden;
+    text-overflow: ellipsis;
     color: hsl(var(--text-secondary));
+}
+.phone-input .options ol .option div .country-name span {
+    white-space: nowrap;
 }
 .phone-input .options ol .option div .country-name .highlight {
     font-weight: 400;
