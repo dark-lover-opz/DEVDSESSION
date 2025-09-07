@@ -49,9 +49,9 @@ CMD ["npm", "start", "serve"]
 
 ---
 
-### Fixed package.json
+### Fixed `package.json`
 
-The only change here is in the `scripts` section. The `"build"` and `"build-dev"` scripts now use `npx tsc` to execute the TypeScript compiler, which is the correct way to run a locally-installed tool in a script.
+This file contains the key change. The `build` script now correctly uses `npx` to find and execute the `tsc` command.
 
 ```json
 {
@@ -100,4 +100,4 @@ The only change here is in the `scripts` section. The `"build"` and `"build-dev"
 }
 
 
-**Please ensure you replace the entire contents of your Dockerfile and `package.json` files with the code I have provided.**
+**Please replace the entire content of your current `Dockerfile` and `package.json` files with the code above and try the build again.**
