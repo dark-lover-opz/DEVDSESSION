@@ -51,7 +51,7 @@ CMD ["npm", "start", "serve"]
 
 ### Fixed `package.json`
 
-This file contains the key change. The `build` script now correctly uses `npx` to find and execute the `tsc` command.
+The key change is in the `build` script. It now uses `npx` to correctly find and execute the `tsc` command.
 
 ```json
 {
@@ -99,5 +99,4 @@ This file contains the key change. The `build` script now correctly uses `npx` t
     }
 }
 
-
-**Please replace the entire content of your current `Dockerfile` and `package.json` files with the code above and try the build again.**
+Please ensure you **replace the entire contents of your current `Dockerfile` and `package.json` files with the code above** and try the build again.
