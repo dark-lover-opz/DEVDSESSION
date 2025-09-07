@@ -45,3 +45,59 @@ EXPOSE 8000
 
 # Start the application
 CMD ["npm", "start", "serve"]
+
+
+---
+
+### Fixed package.json
+
+The only change here is in the `scripts` section. The `"build"` and `"build-dev"` scripts now use `npx tsc` to execute the TypeScript compiler, which is the correct way to run a locally-installed tool in a script.
+
+```json
+{
+    "name": "devdsession",
+    "version": "1.1.0",
+    "description": "Whatsapt paring api for DEVD whatsappbot",
+    "main": "dist/index.js",
+    "type": "module",
+    "scripts": {
+        "start": "node .",
+        "dev": "npm run build-dev && node . serve -v",
+        "build": "npx tsc && npm run build-static",
+        "serve": "npm run build && node . serve -v",
+        "build-dev": "npx tsc && npm run copy-static",
+        "build-static": "copyfiles src/public/*.html -u 1 dist/ && esbuild src/public/assets/* --bundle --minify --format=esm --outdir=dist/public/assets",
+        "copy-static": "copyfiles -u 1 src/public/**/* dist/"
+    },
+    "keywords": [
+        "bot"
+    ],
+    "author": "DannyAkintunde",
+    "license": "MIT",
+    "dependencies": {
+        "@hapi/boom": "^10.0.1",
+        "baileys": "^6.7.16",
+        "dotenv": "^16.5.0",
+        "express": "^5.1.0",
+        "fs-extra": "^11.3.0",
+        "pino": "^9.6.0",
+        "redis": "^5.0.0",
+        "yargs": "^17.7.2"
+    },
+    "devDependencies": {
+        "@types/express": "^5.0.1",
+        "@types/fs-extra": "^11.0.4",
+        "@types/node": "^22.15.3",
+        "@types/qrcode": "^1.5.5",
+        "@types/redis": "^4.0.10",
+        "@types/yargs": "^17.0.33",
+        "copyfiles": "^2.4.1",
+        "esbuild": "^0.25.5",
+        "globals": "^16.0.0",
+        "pino-pretty": "^13.0.0",
+        "typescript": "^5.5.3"
+    }
+}
+
+
+**Please ensure you replace the entire contents of your Dockerfile and `package.json` files with the code I have provided.**
