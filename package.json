@@ -7,9 +7,9 @@
     "scripts": {
         "start": "node .",
         "dev": "npm run build-dev && node . serve -v",
-        "build": "tsc && npm run build-static",
+        "build": "npx tsc && npm run build-static",
         "serve": "npm run build && node . serve -v",
-        "build-dev": "tsc && npm run copy-static",
+        "build-dev": "npx tsc && npm run copy-static",
         "build-static": "copyfiles src/public/*.html -u 1 dist/ && esbuild src/public/assets/* --bundle --minify --format=esm --outdir=dist/public/assets",
         "copy-static": "copyfiles -u 1 src/public/**/* dist/"
     },
@@ -38,6 +38,7 @@
         "copyfiles": "^2.4.1",
         "esbuild": "^0.25.5",
         "globals": "^16.0.0",
-        "pino-pretty": "^13.0.0"
+        "pino-pretty": "^13.0.0",
+        "typescript": "^5.5.3"
     }
 }
